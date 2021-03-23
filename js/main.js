@@ -5,6 +5,10 @@ var app = new Vue({
     {   
         imgPrefix: 'img/avatar',
         imgExt: '.jpg',
+        user: {
+            name: 'Me',
+            avatar: '_io'
+        },
         contacts: [
             {
                 name: 'Michele',
