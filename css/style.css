@@ -156,6 +156,12 @@ i {
 .chat_list ul {
     list-style: none;
 }
+.chat_list li:not(:first-child) {
+    border-top: 1px solid lightgray;
+}
+.selected {
+    background-color: lightgray;
+}
 
 /* --- chat_box --- */
 .chat_box {
