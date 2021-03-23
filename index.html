@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+        integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
+        crossorigin="anonymous" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <title>Boolzapp</title>
+</head>
+<body>
+    <!-- container principale web app -->
+    <div id="root" class="flex">
+
+        <!-- parte sx della web app con comandi -->
+        <div class="nav_box w40 flex">
+
+            <div class="user_box">
+                <div class="user_control h_60">
+                    <i class="fas fa-circle-notch"></i>
+                    <i class="fas fa-comment-alt"></i>
+                    <i class="fas fa-ellipsis-v"></i>
+                </div>
+            </div>
+
+            <div class="notifications h_60">
+                <i class="fas fa-bell-slash double circle white_back"></i>
+            </div>
+
+            <div class="search h_40 ">
+                <label class="w40" for="chat_search"><i class="fas fa-search"></i></label>
+                <input class="w60" type="text" id="chat_search" placeholder="Cerca o inizia una nuova chat">
+            </div>
+
+            <div class="chat_list white_back">
+                <ul>
+                    <li v-for="(contact, index) in contacts"><img :src="imgPrefix + contact.avatar + imgExt"  alt=""></li>
+                </ul>
+
+            </div>
+        </div>
+
+        <!-- parte dx della web app con visualizzazione chat -->
+        <div class="chat_box flex">
+
+            <div class="contact flex h_60 light_grey_back">
+
+            </div>
+
+            <div class="chat flex">
+
+            </div>
+
+            <div class="message_box flex sand_back h_60">
+                
+            </div>
+        </div>
+
+
+    </div>
+    <!-- <script src="js/main.js"></script> -->
+</body>
+</html>
