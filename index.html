@@ -46,14 +46,14 @@
 
             <!-- sezione ricerca chat -->
             <div class="search h_60 flex center_flex">
-                <span class="white_back search_label" for="chat_search"><i class="fas fa-search"></i></span>
-                <input class="w80" type="text" id="chat_search" placeholder="Cerca o inizia una nuova chat"/>
+                <label class="white_back search_label" for="chat_search"><i class="fas fa-search"></i></label>
+                <input class="w80" type="text" id="chat_search" v-model="txt" placeholder="Cerca o inizia una nuova chat" @keyup.enter="chatFilter(txt)"/>
             </div>
 
             <!-- sezione lista chat -->
             <div class="chat_list white_back">
                 <ul>
-                    <li class="pad_10 flex" v-for="(contact, index) in contacts" :class="(index == chatIndex) ? 'selected' : null" @click="chatSelected(index)">
+                    <li class="contact_item pad_10 flex" v-for="(contact, index) in contacts" :class="(index == chatIndex) ? 'selected' : null" @click="chatSelected(index)">
                         <img class="logo big left_margin_10" :src="imgPrefix + contact.avatar + imgExt"  alt="contact.name logo"/>
                         <span class="left_margin_10">{{contact.name}}</span>
                     </li>
@@ -70,7 +70,7 @@
                 <img class="logo small" :src="imgPrefix + contacts[chatIndex].avatar + imgExt" alt="contact logo"/>
                 <span class="left_margin_10 flex_expand">
                     <p>{{contacts[chatIndex].name}}</p>
-                    <p class="grey_col">Ultimo accesso oggi alle</p>
+                    <p class="grey_col">Ultimo accesso oggi alle <!-- {{contacts[chatIndex].messages[contacts[chatIndex].messages.length - 1].date} -->}</p>
                 </span>
                 <span class="grey_col right ">
                     <i class="fas fa-search double"></i>
@@ -91,7 +91,7 @@
             <!-- barra in basso con input messaggio -->
             <div class="message_box flex sand_back h_70 grey_col">
                 <i class="far fa-smile double"></i>
-                <input class="w80 message_in" type="text" placeholder="Scrivi un messaggio"/>
+                <input class="w80 message_in" type="text" v-model="newText" placeholder="Scrivi un messaggio" @keyup.enter="sendMessage(newText)"/>
                 <i class="fas fa-microphone double"></i>
             </div>
         </div>

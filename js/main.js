@@ -6,6 +6,10 @@ var app = new Vue({
         imgPrefix: 'img/avatar',
         imgExt: '.jpg',
         chatIndex: 0,
+        txt: '',
+        newText: '',
+        new: {},
+        newContacts: [],
         user: {
             name: 'Me',
             avatar: '_io'
@@ -102,6 +106,50 @@ var app = new Vue({
     methods: {
         chatSelected(index) {
             this.chatIndex = index;
+        },
+        sendMessage(text) {
+            this.new = {};
+            var data = new Date();
+            var Hh, Mm, Ss;
+            Hh = data.getHours() + ":";
+            Mm = data.getMinutes() + ":";
+            Ss = data.getSeconds();
+            var gg, mm, aaaa;
+            gg = data.getDate() + "/";
+            mm = data.getMonth() + 1 + "/";
+            aaaa = data.getFullYear();
+            this.new.date = gg + mm + aaaa + "  " + Hh + Mm + Ss;
+            this.new.status = 'sent';
+            console.log(this.new);
+            this.new.text = text;
+            this.contacts[this.chatIndex].messages.push(this.new);
+            setTimeout(this.getMessage, 2000);
+            this.newText = "";
+
+        },
+        getMessage() {
+            this.new = {};
+            var data = new Date();
+            var Hh, Mm, Ss;
+            Hh = data.getHours() + ":";
+            Mm = data.getMinutes() + ":";
+            Ss = data.getSeconds();
+            var gg, mm, aaaa;
+            gg = data.getDate() + "/";
+            mm = data.getMonth() + 1 + "/";
+            aaaa = data.getFullYear();
+            this.new.date = gg + mm + aaaa + "  " + Hh + Mm + Ss;
+            this.new.status = 'received';
+            console.log(this.new);
+            this.new.text = 'ok';
+            this.contacts[this.chatIndex].messages.push(this.new);
+        },
+        chatFilter(txt) {
+            this.contacts.forEach(element => {
+                if (element.name.includes(txt))
+                    this.newContacts.push(element);
+            });
+            console.log(this.newContacts);
         }
     }
 

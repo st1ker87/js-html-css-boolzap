@@ -75,7 +75,7 @@ body {
 }
 
 i {
-    margin-right: 20px;
+    cursor: pointer;
 }
 
 /* FONT */
@@ -111,6 +111,9 @@ i {
 .user_box .user {
     flex-grow: 2;
 }
+.user_box i {
+    margin-right: 20px;
+}
 
 .logo {
     border-radius: 100%;
@@ -140,13 +143,15 @@ i {
 }
 #chat_search {
     height: 40px;
+    width: calc(100% - 60px);
     border: none;
 }
 .search_label {
     height: 40px;
-    width: 20%;
+    width: 60px;
     line-height: 40px;
     text-align: center;
+    cursor: pointer;
 }
 
 .chat_list {
@@ -159,8 +164,16 @@ i {
 .chat_list li:not(:first-child) {
     border-top: 1px solid lightgray;
 }
+.chat_list .contact_item:hover {
+    background-color: #ededed;
+    cursor: pointer;
+}
 .selected {
     background-color: lightgray;
+}
+
+.hide {
+    display: none;
 }
 
 /* --- chat_box --- */
@@ -168,6 +181,10 @@ i {
     flex-direction: column;
     height: 100%;
     width: 70%;
+}
+
+.contact i {
+    margin-right: 20px;
 }
 
 .chat {
@@ -184,7 +201,7 @@ i {
 }
 .msg {
     position: relative;
-    width: 45%;
+    min-width: 30%;
     margin: 10px 20px;
     padding: 15px 10px 20px;
     border-radius: 10px;
