@@ -53,7 +53,7 @@
             <!-- sezione lista chat -->
             <div class="chat_list white_back">
                 <ul>
-                    <li class="pad_10 flex" v-for="(contact, index) in contacts" :class="(index == 0) ? 'selected' : null">
+                    <li class="pad_10 flex" v-for="(contact, index) in contacts" :class="(index == chatIndex) ? 'selected' : null" @click="chatSelected(index)">
                         <img class="logo big left_margin_10" :src="imgPrefix + contact.avatar + imgExt"  alt="contact.name logo"/>
                         <span class="left_margin_10">{{contact.name}}</span>
                     </li>
@@ -67,9 +67,9 @@
 
             <!-- barra in alto con informazioni chat visualizzata -->
             <div class="contact flex h_70 center_flex light_grey_back pad_10">
-                <img class="logo small" :src="imgPrefix + contacts[0].avatar + imgExt" alt="contact logo"/>
+                <img class="logo small" :src="imgPrefix + contacts[chatIndex].avatar + imgExt" alt="contact logo"/>
                 <span class="left_margin_10 flex_expand">
-                    <p>{{contacts[0].name}}</p>
+                    <p>{{contacts[chatIndex].name}}</p>
                     <p class="grey_col">Ultimo accesso oggi alle</p>
                 </span>
                 <span class="grey_col right ">
@@ -82,7 +82,7 @@
             <!-- visualizzazione messaggi della chat selezionata -->
             <div class="chat flex">
                 <ul class="chat_messages">
-                    <li class="msg" :class="message.status" v-for="(message, index) in contacts[0].messages">{{message.text}}
+                    <li class="msg" :class="message.status" v-for="(message, index) in contacts[chatIndex].messages">{{message.text}}
                         <span class="msg_date">{{message.date}}</span>
                     </li>
                 </ul>

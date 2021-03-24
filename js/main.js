@@ -5,6 +5,7 @@ var app = new Vue({
     {   
         imgPrefix: 'img/avatar',
         imgExt: '.jpg',
+        chatIndex: 0,
         user: {
             name: 'Me',
             avatar: '_io'
@@ -99,7 +100,9 @@ var app = new Vue({
     },
 
     methods: {
-
+        chatSelected(index) {
+            this.chatIndex = index;
+        }
     }
 
 });
