@@ -164,6 +164,9 @@ i {
 .chat_list li:not(:first-child) {
     border-top: 1px solid lightgray;
 }
+.chat_list .contact_item {
+    display: flex;
+}
 .chat_list .contact_item:hover {
     background-color: #ededed;
     cursor: pointer;
@@ -172,7 +175,7 @@ i {
     background-color: lightgray;
 }
 
-.hide {
+.chat_list .contact_item.hide {
     display: none;
 }
 
@@ -202,7 +205,8 @@ i {
 .msg {
     position: relative;
     min-width: 30%;
-    margin: 10px 20px;
+    max-width: 60%;
+    margin: 10px;
     padding: 15px 10px 20px;
     border-radius: 10px;
 }

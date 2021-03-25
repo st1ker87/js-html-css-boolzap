@@ -5,15 +5,17 @@ var app = new Vue({
     {   
         imgPrefix: 'img/avatar',
         imgExt: '.jpg',
-        chatIndex: 0,
+        chatIndex: "",
         txt: '',
         newText: '',
         new: {},
         newContacts: [],
+        temporaryLast: 'Ultimo accesso oggi alle ',
         user: {
-            name: 'Me',
+            name: 'Stefano',
             avatar: '_io'
         },
+
         contacts: [
             {
                 name: 'Michele',
@@ -99,8 +101,6 @@ var app = new Vue({
                 ],
             },
         ]
-
-
     },
 
     methods: {
@@ -123,6 +123,7 @@ var app = new Vue({
             console.log(this.new);
             this.new.text = text;
             this.contacts[this.chatIndex].messages.push(this.new);
+            this.temporaryLast = 'sta scrivendo...'
             setTimeout(this.getMessage, 2000);
             this.newText = "";
 
@@ -143,13 +144,22 @@ var app = new Vue({
             console.log(this.new);
             this.new.text = 'ok';
             this.contacts[this.chatIndex].messages.push(this.new);
+            this.temporaryLast = 'Ultimo accesso oggi alle ';
+        },
+        getLastDate(array) {
+            var hour = array[array.length - 1].date.slice(10);
+            return hour;
         },
         chatFilter(txt) {
             this.contacts.forEach(element => {
-                if (element.name.includes(txt))
-                    this.newContacts.push(element);
+                if (element.name.includes(txt) == false)
+                    element.visible = false;
+                else 
+                    element.visible = true;
             });
-            console.log(this.newContacts);
+            console.log(this.contacts);
+
+        
         }
     }
 
