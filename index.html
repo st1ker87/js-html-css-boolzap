@@ -11,6 +11,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.10.4/dayjs.min.js"
+        integrity="sha512-0fcCRl828lBlrSCa8QJY51mtNqTcHxabaXVLPgw/jPA5Nutujh6CbTdDgRzl9aSPYW/uuE7c4SffFUQFBAy6lg=="
+        crossorigin="anonymous"></script>
     <title>Boolzapp</title>
 </head>
 <body>
@@ -56,6 +59,8 @@
                     <li class="contact_item pad_10" v-for="(contact, index) in contacts" :class="(contact.visible == false) ? 'hide' : (index === chatIndex) ? 'selected' : null" @click="chatSelected(index)">
                         <img class="logo big left_margin_10" :src="imgPrefix + contact.avatar + imgExt"  alt="contact.name logo"/>
                         <span class="left_margin_10">{{contact.name}}</span>
+                        <span class="last_msg">{{lastMsg(contact.messages)}}</span>
+                        <span class="date_last_msg">{{getLastDate(contact.messages)}}</span>
                     </li>
                 </ul>
 
@@ -84,17 +89,23 @@
             <div v-if="chatIndex === ''" class="chat flex"></div>
             <div v-else class="chat flex">
                 <ul class="chat_messages">
-                    <li class="msg" :class="message.status" v-for="(message, index) in contacts[chatIndex].messages">{{message.text}}
+                    <li  @click="showMenu(index)" class="msg" :class="message.status" v-for="(message, index) in contacts[chatIndex].messages">{{message.text}}
                         <span class="msg_date">{{message.date}}</span>
+                        <i class="fas fa-chevron-down"></i>
+                        <ul v-if="index === hideShow.index && hideShow.visibility === 'show'" class="msg_menu" :class="hideShow.visibility">
+                            <li class="delete" @click="msgDelete(index)">Cancella questo messaggio</li>
+                            <li>Info messaggio</li>
+                        </ul>
                     </li>
                 </ul>
             </div>
 
             <!-- barra in basso con input messaggio -->
-            <div class="message_box flex sand_back h_70 grey_col">
+            <div v-if="chatIndex !== ''" class="message_box flex sand_back h_70 grey_col">
                 <i class="far fa-smile double"></i>
                 <input class="w80 message_in" type="text" v-model="newText" placeholder="Scrivi un messaggio" @keyup.enter="sendMessage(newText)"/>
-                <i class="fas fa-microphone double"></i>
+                <i v-if="newText == ''" class="fas fa-microphone double"></i>
+                <i v-else class="fas fa-paper-plane"@click="sendMessage(newText)"></i>
             </div>
         </div>
 

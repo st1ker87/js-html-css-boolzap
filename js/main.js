@@ -10,7 +10,11 @@ var app = new Vue({
         newText: '',
         new: {},
         newContacts: [],
-        temporaryLast: 'Ultimo accesso oggi alle ',
+        temporaryLast: 'Ultimo accesso il ',
+        hideShow: {
+            index: "",
+            visibility: 'hide'
+        },
         user: {
             name: 'Stefano',
             avatar: '_io'
@@ -97,6 +101,56 @@ var app = new Vue({
                         date: '10/01/2020 15:50:00',
                         text: 'Si, ma preferirei andare al cinema',
                         status: 'received'
+                    },
+                    {
+                        date: '10/01/2020 15:30:55',
+                        text: 'Lo sai che ha aperto una nuova pizzeria?',
+                        status: 'sent'
+                    },
+                    {
+                        date: '10/01/2020 15:50:00',
+                        text: 'Si, ma preferirei andare al cinema',
+                        status: 'received'
+                    },
+                    {
+                        date: '10/01/2020 15:30:55',
+                        text: 'Lo sai che ha aperto una nuova pizzeria?',
+                        status: 'sent'
+                    },
+                    {
+                        date: '10/01/2020 15:50:00',
+                        text: 'Si, ma preferirei andare al cinema',
+                        status: 'received'
+                    },
+                    {
+                        date: '10/01/2020 15:30:55',
+                        text: 'Lo sai che ha aperto una nuova pizzeria?',
+                        status: 'sent'
+                    },
+                    {
+                        date: '10/01/2020 15:50:00',
+                        text: 'Si, ma preferirei andare al cinema',
+                        status: 'received'
+                    },
+                    {
+                        date: '10/01/2020 15:30:55',
+                        text: 'Lo sai che ha aperto una nuova pizzeria?',
+                        status: 'sent'
+                    },
+                    {
+                        date: '10/01/2020 15:50:00',
+                        text: 'Si, ma preferirei andare al cinema',
+                        status: 'received'
+                    },
+                    {
+                        date: '10/01/2020 15:30:55',
+                        text: 'Lo sai che ha aperto una nuova pizzeria?',
+                        status: 'sent'
+                    },
+                    {
+                        date: '10/01/2020 15:50:00',
+                        text: 'Si, ma preferirei andare al cinema',
+                        status: 'received'
                     }
                 ],
             },
@@ -106,19 +160,12 @@ var app = new Vue({
     methods: {
         chatSelected(index) {
             this.chatIndex = index;
+            this.scrollToBottom();
+
         },
         sendMessage(text) {
             this.new = {};
-            var data = new Date();
-            var Hh, Mm, Ss;
-            Hh = data.getHours() + ":";
-            Mm = data.getMinutes() + ":";
-            Ss = data.getSeconds();
-            var gg, mm, aaaa;
-            gg = data.getDate() + "/";
-            mm = data.getMonth() + 1 + "/";
-            aaaa = data.getFullYear();
-            this.new.date = gg + mm + aaaa + "  " + Hh + Mm + Ss;
+            this.new.date = dayjs(new Date()).format('DD/MM/YYYY HH:mm:ss');
             this.new.status = 'sent';
             console.log(this.new);
             this.new.text = text;
@@ -126,28 +173,24 @@ var app = new Vue({
             this.temporaryLast = 'sta scrivendo...'
             setTimeout(this.getMessage, 2000);
             this.newText = "";
-
+            this.scrollToBottom();
         },
         getMessage() {
             this.new = {};
-            var data = new Date();
-            var Hh, Mm, Ss;
-            Hh = data.getHours() + ":";
-            Mm = data.getMinutes() + ":";
-            Ss = data.getSeconds();
-            var gg, mm, aaaa;
-            gg = data.getDate() + "/";
-            mm = data.getMonth() + 1 + "/";
-            aaaa = data.getFullYear();
-            this.new.date = gg + mm + aaaa + "  " + Hh + Mm + Ss;
+            this.new.date = dayjs(new Date()).format('DD/MM/YYYY HH:mm:ss');
             this.new.status = 'received';
             console.log(this.new);
             this.new.text = 'ok';
             this.contacts[this.chatIndex].messages.push(this.new);
             this.temporaryLast = 'Ultimo accesso oggi alle ';
+            this.scrollToBottom();
+        },
+        lastMsg(array){
+            let textMsg = array[array.length - 1].text;
+            return textMsg;
         },
         getLastDate(array) {
-            var hour = array[array.length - 1].date.slice(10);
+            var hour = array[array.length - 1].date;
             return hour;
         },
         chatFilter(txt) {
@@ -158,8 +201,23 @@ var app = new Vue({
                     element.visible = true;
             });
             console.log(this.contacts);
-
-        
+        },
+        showMenu(index) {
+            this.hideShow.index = index;
+            if (this.hideShow.visibility === 'hide')
+                this.hideShow.visibility = 'show';
+                else
+                this.hideShow.visibility = 'hide';
+            
+        },
+        scrollToBottom() {
+            this.$nextTick(() => {
+                let elmnt = document.getElementsByClassName("msg");
+                elmnt[elmnt.length - 1].scrollIntoView(false);
+            });
+        },
+        msgDelete(index) {
+            this.contacts[this.chatIndex].messages.splice(index,  1);
         }
     }
 

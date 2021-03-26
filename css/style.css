@@ -166,6 +166,7 @@ i {
 }
 .chat_list .contact_item {
     display: flex;
+    position: relative;
 }
 .chat_list .contact_item:hover {
     background-color: #ededed;
@@ -178,6 +179,21 @@ i {
 .chat_list .contact_item.hide {
     display: none;
 }
+
+.contact_item .last_msg {
+    position: absolute;
+    bottom: 5px;
+    left: 90px;
+    color: grey;
+    height: 1.3em;
+    overflow: hidden;
+}
+.contact_item .date_last_msg {
+    position: absolute;
+    right: 3px;
+    color: grey;
+}
+
 
 /* --- chat_box --- */
 .chat_box {
@@ -209,13 +225,48 @@ i {
     margin: 10px;
     padding: 15px 10px 20px;
     border-radius: 10px;
+    overflow-wrap: break-word;
+    cursor: pointer;
 }
-.msg_date {
+.msg .msg_date,
+.msg .fas,
+.msg .msg_menu {
     position: absolute;
+}
+.msg .msg_date {
     bottom: 3px;
     right: 3px;
     font-size: 0.6em;
     color: lightgray;
+}
+.msg .fas {
+    display: none;
+}
+.msg:hover .fas {
+    display: inline-block;
+    right: 3px;
+    color: lightgray;
+    font-size: 1.3em;
+}
+.msg .msg_menu {
+    display: none;
+    padding: 5px;
+    right: 15px;
+    bottom: -40px;
+    background-color: #fafafab2;
+    border-radius: 2px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    z-index: 3;
+}
+.msg .msg_menu li {
+    padding: 5px 0;
+    list-style: none;
+}
+.msg .msg_menu.show {
+    display: inline-block;
+}
+.msg .msg_menu .delete {
+    cursor: pointer;
 }
 
 .sent {
