@@ -195,7 +195,7 @@ var app = new Vue({
         },
         chatFilter(txt) {
             this.contacts.forEach(element => {
-                if (element.name.includes(txt) == false)
+                if (element.name.toLowerCase().includes(txt.toLowerCase()) == false)
                     element.visible = false;
                 else 
                     element.visible = true;
